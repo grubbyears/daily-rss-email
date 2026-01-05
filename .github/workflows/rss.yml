@@ -8,19 +8,38 @@ on:
 jobs:
   send:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Install rss2email
         run: sudo apt-get update && sudo apt-get install -y rss2email
 
-      - name: Configure feeds
+      - name: Configure rss2email
+        env:
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
         run: |
+          mkdir -p ~/.rss2email
+          cat <<EOF > ~/.rss2email/config.py
+          from rss2email import config
+          config.SMTP_SERVER = "smtp.gmail.com"
+          config.SMTP_PORT = 587
+          config.SMTP_SSL = False
+          config.SMTP_TLS = True
+          config.SMTP_AUTH = True
+          config.SMTP_USER = "${SMTP_USER}"
+          config.SMTP_PASS = "${SMTP_PASS}"
+          config.FROM = "${SMTP_USER}"
+          EOF
+
           r2e new grubbyears@pm.me
+          r2e add https://feeds.bbci.co.uk/news/rss.xml
           r2e add https://feeds.reuters.com/reuters/UKTopNews
-          r2e add https://www.bbc.co.uk/news/rss.xml
 
       - name: Send email
+        run: r2e run
+
         env:
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
