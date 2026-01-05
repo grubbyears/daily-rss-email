@@ -16,7 +16,7 @@ jobs:
 
       - name: Configure feeds
         run: |
-          r2e new grubbyear@pm.me
+          r2e new grubbyears@pm.me
           r2e add https://feeds.reuters.com/reuters/UKTopNews
           r2e add https://www.bbc.co.uk/news/rss.xml
 
