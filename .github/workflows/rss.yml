@@ -3,6 +3,7 @@ name: Daily RSS Email
 on:
   schedule:
     - cron: '0 9 * * *'
+      timezone: Europe/London
   workflow_dispatch:
 
 jobs:
