@@ -41,7 +41,4 @@ jobs:
       - name: Send email
         run: r2e run
 
-        env:
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}
-        run: r2e run
+   
