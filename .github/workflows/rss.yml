@@ -35,8 +35,8 @@ jobs:
           EOF
 
           r2e new grubbyears@pm.me
-          r2e add https://feeds.bbci.co.uk/news/rss.xml
-          r2e add https://feeds.reuters.com/reuters/UKTopNews
+          r2e add bbc https://feeds.bbci.co.uk/news/rss.xml
+          r2e add reuters https://feeds.reuters.com/reuters/UKTopNews
 
       - name: Send email
         run: r2e run
