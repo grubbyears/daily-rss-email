@@ -1,0 +1,27 @@
+name: Daily RSS Email
+
+on:
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install rss2email
+        run: sudo apt-get update && sudo apt-get install -y rss2email
+
+      - name: Configure feeds
+        run: |
+          r2e new grubbyear@pm.me
+          r2e add https://feeds.reuters.com/reuters/UKTopNews
+          r2e add https://www.theguardian.com/world/rss
+
+      - name: Send email
+        env:
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+        run: r2e run
