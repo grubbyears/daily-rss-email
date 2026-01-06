@@ -34,7 +34,7 @@ jobs:
           config.FROM = "${SMTP_USER}"
           EOF
 
-          r2e new grubbyears@pm.me
+          r2e new grubbyears@gmail.com
           r2e add bbc https://feeds.bbci.co.uk/news/rss.xml
           r2e add reuters https://feeds.reuters.com/reuters/UKTopNews
           r2e add ft_markets https://www.ft.com/rss/markets
